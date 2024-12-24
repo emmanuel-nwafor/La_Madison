@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>la Madison</title>
+    <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      #map {
+        height: 100%; /* Full height for the map */
+        width: 100%; /* Full width for the map */
+      }
+    </style>
+  </head>
+  <body class="h-screen bg-gray-100">
+    <!-- Map Container -->
+    <div id="map" class="h-full"></div>
+
+    <!-- Leaflet JavaScript -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      crossorigin=""
+    ></script>
+    <script src="map.js"></script>
+  </body>
+</html>

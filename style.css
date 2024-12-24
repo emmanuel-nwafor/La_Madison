@@ -1,0 +1,52 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  transition: transform 0.3s ease-in-out;
+}
+.navbar.hidden {
+  transform: translateY(-100%);
+}
+.navbar {
+  transition: transform 0.3s ease;
+  opacity: 0.3s ease;
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.navbar-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+/* Custom styles */
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #38a169;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: none;
+  animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+  0%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>la Madison</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="cart.js"></script>
+    <script defer src="index.js"></script>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="home"></div>
+    <header>
+      <nav
+        id="navbar"
+        class="navbar bg-gray-300 shadow-lg fixed top-0 left-0 w-full z-50"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            class="flex justify-evenly items-center sm:h-[100px] h-[60px] rounded-b-lg"
+          >
+            <img
+              src="assets/logo.png"
+              alt=""
+              class="sm:h-[110px] h-[90px] rounded-xl"
+            />
+            <button
+              id="menu-button"
+              class="block md:hidden text-gray-600 focus:outline-none"
+            >
+              <svg
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            </button>
+
+            <div
+              id="menu"
+              class="hidden md:flex md:items-center md:justify-between space-x-[100px]"
+            >
+              <div>
+                <a
+                  href="#home"
+                  class="text-gray-700 hover:text-orange-500 hover:border-b-2 border-orange-500 m-2"
+                >
+                  Home</a
+                >
+                <a
+                  href="#about"
+                  class="text-gray-700 hover:text-orange-500 hover:border-b-2 border-orange-500 m-2"
+                >
+                  About</a
+                >
+                <a
+                  href="#services"
+                  class="text-gray-700 hover:text-orange-500 hover:border-b-2 border-orange-500 m-2"
+                  >Services</a
+                >
+                <a
+                  href="#contact"
+                  class="text-gray-700 hover:text-orange-500 hover:border-b-2 border-orange-500 m-2"
+                  >Contact</a
+                >
+
+                <div class="relative inline-block text-left">
+                  <button
+                    id="dropdownButton"
+                    class="flex justify-center items-center hover:text-orange-500 text-gray-700 m-2"
+                    aria-expanded="true"
+                    aria-haspopup="true"
+                  >
+                    Explore
+                    <svg
+                      class="-mr-1 ml-2 h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+
+                  <!-- Dropdown menu -->
+                  <div
+                    id="dropdownMenu"
+                    class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="dropdownButton"
+                    tabindex="-1"
+                  >
+                    <div class="py-1" role="none">
+                      <a
+                        href="index2.html"
+                        class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                        role="menuitem"
+                        >Find a House</a
+                      >
+                      <a
+                        href="https://web.whatsapp.com/"
+                        class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                        role="menuitem"
+                        >Chat Us</a
+                      >
+                      <!-- <a
+                        href="#"
+                        class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                        role="menuitem"
+                        >Option 3</a
+                      > -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="index4.html" class="text-center text-2xl"
+                ><i class="bx bxs-cart-alt"></i
+              ></a>
+            </div>
+          </div>
+          <div
+            id="mobile-menu"
+            class="hidden md:hidden mt-[30px] mb-[30px] space-y-2"
+          >
+            <a
+              href="#home"
+              class="block text-gray-700 hover:text-orange-500 p-2"
+            >
+              Home <i class="bx bxs-home"></i
+            ></a>
+            <a
+              href="#about"
+              class="block text-gray-700 hover:text-orange-500 p-2"
+              >About <i class="bx bxs-calendar-check"></i
+            ></a>
+            <a
+              href="#services"
+              class="block text-gray-700 hover:text-orange-500 p-2"
+              >Services <i class="bx bxs-map-pin"></i
+            ></a>
+            <a
+              href="#contact"
+              class="block text-gray-700 hover:text-orange-500 p-2"
+              >Contact <i class="bx bxs-phone"></i
+            ></a>
+            <a
+              href="index2.html"
+              class="block text-gray-700 hover:text-orange-500 p-2"
+              >Wishlist <i class="bx bxs-cart-alt"></i
+            ></a>
+            <a href="index4.html">
+              <button
+                class="border-2 border-black hover:bg-gray-950 transition-all hover:text-white rounded-lg pl-[10px] pr-[10px] p-[9px]"
+              >
+                Find a house
+              </button>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div
+      class="h-[150vh] sm:h-[120vh] max-md:h-[130vh] bg-[url('assets/img17.jpg')] sm:mt-[20px] sm:bg-fixed rounded-xl bg-cover bg-center sm:flex md:flex lg:flex xl:flex items-center justify-evenly"
+    >
+      <!-- <br /><br /><br /><br /><br /> -->
+      <div class="h-[10vh] sm:hidden" id="home"></div>
+      <div class="m-[20px] sm:mt-[100px]">
+        <h1
+          class="font-bold text-[50px] text-gray-300 sm:text-black font-extrabold sm:font-semibold drop-shadow-2xl max-md:text-[40px]"
+        >
+          Find A <span class="text-orange-500 font-extrabold">House</span>
+          <br />
+          That Suits You
+        </h1>
+        <br class="sm:hidden" />
+        <h2 class="font-semibold text-gray-200 text-[25px]">
+          La <span class="text-orange-900">Madison</span> Real Estate Agency
+        </h2>
+        <h2 class="font-semibold text-[18px] text-gray-300">
+          No. 1 Housing Agency World Wide
+        </h2>
+        <br />
+        <a href="index2.html">
+          <button
+            class="bg-orange-500 hover:bg-orange-950 transition-all hover:text-white rounded-xl pl-[35px] pr-[35px] p-[19px]"
+          >
+            Get Started
+          </button>
+        </a>
+      </div>
+
+      <div class="m-[20px] sm:mt-[100px]">
+        <div
+          class="rounded-xl max-md:p-[13px] max-md:border-2 p-[20px] pl-[100px] pr-[100px] m-2 backdrop-blur-lg flex-col align-center justify-center"
+        >
+          <h1
+            class="text-[30px] font-semibold text-gray-400 max-md:text-blue-600 sm:text-black text-center"
+          >
+            12000<span class="text-orange-500 max-md:text-blue-600">+</span>
+          </h1>
+          <p class="text-gray-400 sm:text-black text-center">
+            Listed Properties
+          </p>
+        </div>
+        <div
+          class="rounded-xl max-md:p-[13px] max-md:border-2 p-[20px] pl-[100px] pr-[100px] m-2 backdrop-blur-lg flex-col align-center justify-center"
+        >
+          <h1
+            class="text-[30px] font-semibold text-gray-400 max-md:text-blue-600 sm:text-black text-center"
+          >
+            4500<span class="text-orange-500 max-md:text-blue-600">+</span>
+          </h1>
+          <p class="text-gray-400 sm:text-black text-center">Happy Customers</p>
+        </div>
+        <div
+          class="rounded-xl max-md:p-[13px] max-md:border-2 p-[20px] pl-[100px] pr-[100px] m-2 backdrop-blur-lg flex-col align-center justify-center"
+        >
+          <h1
+            class="text-[30px] font-semibold text-gray-400 max-md:text-blue-600 sm:text-black text-center"
+          >
+            100<span class="text-orange-500 max-md:text-blue-600">+</span>
+          </h1>
+          <p class="text-gray-400 sm:text-black text-center">Awards</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="m-[30px]">
+        <div class="container mx-auto py-8">
+          <div class="m-3">
+            <h1 class="text-xl font-bold">POPULAR</h1>
+            <h1 class="text-3xl">Our Popular Homes</h1>
+          </div>
+          <div
+            id="product-list"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <!-- Products will be dynamically inserted -->
+          </div>
+        </div>
+      </div>
+      <!-- Popup -->
+      <div
+        id="popup"
+        class="hidden fixed top-4 right-4 bg-green-500 text-white p-4 rounded shadow-lg z-50"
+      >
+        Item added to wishlist!
+      </div>
+    </div>
+
+    <!-- <div class="flex max-md:flex-col h-[60vh]"></div> -->
+    <div id="about"></div>
+    <div class="bg-zinc-800 flex max-mdflex-col items-center justify-center">
+      <div class="m-[30px] flex max-md:flex-col justify-center items-center">
+        <div>
+          <div class="m-3">
+            <h1 class="text-xl font-bold text-white">ABOUT US</h1>
+            <br />
+            <h1 class="text-3xl text-white">Who we are</h1>
+            <hr />
+          </div>
+          <p class="m-3 text-gray-50">
+            Welcome to La Madison Real Estate Agency, where finding your dream
+            property becomes a seamless experience. We are a leading real estate
+            agency dedicated to helping individuals, families, and businesses
+            discover, buy, and invest in exceptional properties that meet their
+            needs and exceed their expectations. With a rich history of
+            excellence and a commitment to innovation, we’ve established
+            ourselves as a trusted partner in the real estate industry. Whether
+            you’re looking for a cozy home, a luxurious estate, or a lucrative
+            commercial property, we are here to make it happen.
+          </p>
+        </div>
+
+        <img src="assets/img15.jpg" class="h-[400px] rounded-lg m-5" alt="" />
+
+        <div>
+          <h1 class="text-3xl text-white m-3">Our Mission</h1>
+          <hr />
+          <br />
+          <p class="m-3 text-gray-50">
+            At La Madison Real Estate Agency, our mission is to simplify real
+            estate transactions and empower our clients to make informed
+            decisions. We strive to: Provide unparalleled customer service.
+            Offer a curated selection of premium properties. Foster
+            transparency, trust, and long-term relationships.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-zinc-900">
+      <div
+        class="flex items-center justify-center max-md:flex-col font-sans text-gray-300"
+      >
+        <hr class="w-[250px] m-4" />
+        <div class="p-[50px] rounded-xl">
+          <div class="bg-slate-800 p-5 rounded-lg">
+            <h1 class="text-5xl">20X</h1>
+            <p class="text-center">Faster</p>
+          </div>
+        </div>
+        <div class="p-[50px] rounded-xl">
+          <div class="bg-slate-800 p-5 rounded-lg">
+            <h1 class="text-5xl">100%</h1>
+            <p class="text-center">Reliable</p>
+          </div>
+        </div>
+        <div class="p-[50px] rounded-xl">
+          <div class="bg-slate-800 p-5 rounded-lg">
+            <h1 class="text-5xl">100%</h1>
+            <p class="text-center">Trustworthy</p>
+          </div>
+        </div>
+        <hr class="w-[250px] m-4" />
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+      <!-- Image Gallery -->
+      <div
+        class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
+      >
+        <h1 class="text-3xl m-3 text-right text-black">Why Choose Us</h1>
+
+        <img
+          data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+          src="https://images.pexels.com/photos/2119713/pexels-photo-2119713.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="Gallery Item"
+          class="w-full rounded-lg shadow-md hover:shadow-xl transition"
+        />
+        <div class="max-md:hidden">
+          <img
+            src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Gallery Item"
+            class="w-full rounded-lg shadow-md hover:shadow-xl transition"
+          />
+          <img
+            src="https://images.pexels.com/photos/2098913/pexels-photo-2098913.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Gallery Item"
+            class="w-full rounded-lg shadow-md hover:shadow-xl transition"
+          />
+          <h1 class="text-3xl m-3 text-left text-black">
+            Where Quality Meet Needs
+          </h1>
+
+          <img
+            src="https://images.pexels.com/photos/1475938/pexels-photo-1475938.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Gallery Item"
+            class="w-full rounded-lg shadow-md hover:shadow-xl transition"
+          />
+        </div>
+        <h1 class="text-3xl m-3 text-left text-black">Always The Best</h1>
+        <img
+          data-aos="flip-right"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+          src="https://images.pexels.com/photos/453201/pexels-photo-453201.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="Gallery Item"
+          class="w-full rounded-lg shadow-md hover:shadow-xl transition"
+        />
+        <img
+          src="https://images.pexels.com/photos/2253916/pexels-photo-2253916.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="Gallery Item"
+          class="w-full rounded-lg shadow-md hover:shadow-xl transition"
+        />
+        <img
+          src="https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="Gallery Item"
+          class="w-full rounded-lg shadow-md hover:shadow-xl transition"
+        />
+        <h1 class="text-3xl m-3 text-right text-black">No 1 Estate Agency</h1>
+        <img
+          data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+          src="https://images.pexels.com/photos/2194399/pexels-photo-2194399.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="Gallery Item"
+          class="w-full rounded-lg shadow-md hover:shadow-xl transition max-md:hidden"
+        />
+      </div>
+
+      <div id="services"></div>
+      <div class="m-[30px]">
+        <h1 class="text-3xl m-3 text-right max-md:text-center text-black">
+          Our Vision
+        </h1>
+        <hr />
+        <br />
+        <p class="m-3 text-right text-gray-700 max-md:text-center">
+          At La Madison Estate Agency, our vision is to redefine the real estate
+          experience by setting a benchmark for excellence, trust, and
+          innovation. We aspire to create a world where finding and owning your
+          dream property is seamless, transparent, and rewarding. Guided by our
+          unwavering commitment to customer satisfaction, we aim to empower
+          individuals, families, and businesses with access to premium
+          properties and expert advice, fostering long-lasting relationships
+          built on trust and integrity. La Madison Estate Agency envisions a
+          future where every client feels confident and fulfilled in their real
+          estate journey, knowing they have a partner dedicated to turning
+          dreams into reality.
+        </p>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="m-[30px] hidden sm:hidden md:hidden lg:grid xl:grid">
+      <h1 class="text-3xl m-3 text-left text-black">Testimonials</h1>
+      <hr />
+      <br />
+      <div class="relative w-full h-64 overflow-hidden">
+        <!-- Slideshow Container -->
+        <div id="slideshow" class="flex transition-transform duration-500">
+          <!-- Slide 1 -->
+          <div
+            class="flex-shrink-0 w-full h-64 text-black flex items-center justify-center"
+          >
+            <div class="flex-col m-10 bg-zinc-100 rounded-lg">
+              <div class="p-10">
+                <div class="flex">
+                  <img
+                    src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    class="h-[43px] w-[43px] rounded-full m-3"
+                    alt="image"
+                  />
+                  <h1 class="text-2xl m-3 font-bold text-slate-600">
+                    Sarah Johnson
+                    <br />
+                    <p class="text-[16px] font-light">
+                      Manager at Maison Hotels
+                    </p>
+                  </h1>
+                </div>
+                <p class="m-3">
+                  <i
+                    class="bx bxs-quote-alt-left text-[45px] text-zinc-600"
+                  ></i>
+                  <br />
+                  La Madison Estate Agency made my dream of owning a home a
+                  reality. Their team guided me through every step, making the
+                  process smooth and stress-free. I was impressed by their
+                  professionalism, honesty, and dedication to finding the
+                  perfect property for me. I highly recommend them to anyone
+                  looking for a reliable real estate partner!.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div
+            class="flex-shrink-0 w-full h-64 max-md:h-[80vh] text-black flex items-center justify-center"
+          >
+            <div class="flex-col m-10 bg-zinc-100 rounded-lg">
+              <div class="p-10">
+                <div class="flex">
+                  <img
+                    src="https://images.pexels.com/photos/1181391/pexels-photo-1181391.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    class="h-[43px] w-[43px] rounded-full m-3"
+                    alt=""
+                  />
+                  <h1 class="text-2xl m-3 font-bold text-slate-600">
+                    Micheal Adeyemi
+                    <br />
+                    <p class="text-[16px] font-light">
+                      Director of Eko Hotels Lagos State
+                    </p>
+                  </h1>
+                </div>
+                <p class="m-3">
+                  <i
+                    class="bx bxs-quote-alt-left text-[45px] text-zinc-600"
+                  ></i>
+                  <br />
+                  The expertise and local knowledge of La Madison Estate Agency
+                  are unmatched. I found a beautiful estate that met all my
+                  requirements and exceeded my expectations. They listened to my
+                  needs and delivered on every promise. Their commitment to
+                  client satisfaction is truly commendable. Thank you for an
+                  incredible experience.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div
+            class="flex-shrink-0 w-full h-64 max-md:h-[80vh] text-black flex items-center justify-center"
+          >
+            <div class="flex-col m-10 bg-zinc-100 rounded-lg">
+              <div class="p-10">
+                <div class="flex">
+                  <img
+                    src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    class="h-[43px] w-[43px] rounded-full m-3"
+                    alt="image"
+                  />
+                  <h1 class="text-2xl m-3 font-bold text-slate-600">
+                    Natalie Morgan
+                    <br />
+                    <p class="text-[16px] font-light">Lead Estate Analyst</p>
+                  </h1>
+                </div>
+                <p class="m-3">
+                  <i
+                    class="bx bxs-quote-alt-left text-[45px] text-zinc-600"
+                  ></i>
+                  <br />
+                  Working with La Madison Estate Agency was the best decision I
+                  made during my property search. They were patient, attentive,
+                  and extremely helpful. Their transparent approach made me feel
+                  confident throughout the entire process. I am thrilled with my
+                  new home and grateful for their excellent service.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button
+          id="prev"
+          class="absolute top-1/2 left-4 transform -translate-y-1/2 px-4 py-2 rounded-full hover:bg-gray-700 bg-gray-400"
+        >
+          <i class="bx bx-left-arrow-alt text-3xl text-white"></i>
+        </button>
+        <button
+          id="next"
+          class="absolute top-1/2 right-4 transform -translate-y-1/2 px-4 py-2 rounded-full hover:bg-gray-700 bg-gray-400"
+        >
+          <i class="bx bx-right-arrow-alt text-3xl text-white"></i>
+        </button>
+      </div>
+    </div>
+    <!-- TESTIMONIALS FOR SMALL DEVICES -->
+    <div class="m-[30px] sm:flex-col md:flex-col lg:hidden xl:hidden">
+      <h1 class="text-3xl m-3 text-left text-black">Testimonials</h1>
+      <hr />
+      <br />
+      <div class="">
+        <div class="p-5 m-2 border-2 rounded-lg">
+          <div class="flex">
+            <img
+              src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=600"
+              class="h-[43px] w-[43px] rounded-full m-3"
+              alt="image"
+            />
+            <h1 class="text-2xl m-3 font-bold text-slate-600">
+              Sarah Johnson
+              <br />
+              <p class="text-[16px] font-light">Manager at Maison Hotels</p>
+            </h1>
+          </div>
+          <p class="m-3">
+            <i class="bx bxs-quote-alt-left text-[45px] text-zinc-600"></i>
+            <br />
+            La Madison Estate Agency made my dream of owning a home a reality.
+            Their team guided me through every step, making the process smooth
+            and stress-free. I was impressed by their professionalism, honesty,
+            and dedication to finding the perfect property for me. I highly
+            recommend them to anyone looking for a reliable real estate
+            partner!.
+          </p>
+        </div>
+      </div>
+      <div class="">
+        <div class="p-5 m-2 border-2 rounded-lg">
+          <div class="flex">
+            <img
+              src="https://images.pexels.com/photos/1181391/pexels-photo-1181391.jpeg?auto=compress&cs=tinysrgb&w=600"
+              class="h-[43px] w-[43px] rounded-full m-3"
+              alt=""
+            />
+            <h1 class="text-2xl m-3 font-bold text-slate-600">
+              Micheal Adeyemi
+              <br />
+              <p class="text-[16px] font-light">
+                Director of Eko Hotels Lagos State
+              </p>
+            </h1>
+          </div>
+          <p class="m-3">
+            <i class="bx bxs-quote-alt-left text-[45px] text-zinc-600"></i>
+            <br />
+            The expertise and local knowledge of La Madison Estate Agency are
+            unmatched. I found a beautiful estate that met all my requirements
+            and exceeded my expectations. They listened to my needs and
+            delivered on every promise. Their commitment to client satisfaction
+            is truly commendable. Thank you for an incredible experience.
+          </p>
+        </div>
+      </div>
+      <div class="">
+        <div class="p-5 m-2 border-2 rounded-lg">
+          <div class="flex">
+            <img
+              src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600"
+              class="h-[43px] w-[43px] rounded-full m-3"
+              alt="image"
+            />
+            <h1 class="text-2xl m-3 font-bold text-slate-600">
+              Natalie Morgan
+              <br />
+              <p class="text-[16px] font-light">Lead Estate Analyst</p>
+            </h1>
+          </div>
+          <p class="m-3">
+            <i class="bx bxs-quote-alt-left text-[45px] text-zinc-600"></i>
+            <br />
+            Working with La Madison Estate Agency was the best decision I made
+            during my property search. They were patient, attentive, and
+            extremely helpful. Their transparent approach made me feel confident
+            throughout the entire process. I am thrilled with my new home and
+            grateful for their excellent service.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="contact"></div>
+
+    <div class="flex items-center justify-center m-[30px] max-md:flex-col">
+      <img
+        src="https://images.pexels.com/photos/335393/pexels-photo-335393.jpeg?auto=compress&cs=tinysrgb&w=600"
+        alt=""
+        class="rounded-lg h-[250px]"
+      />
+      <div class="m-[20px] grid items-center justify-center">
+        <h1 class="text-3xl font-bold m-2">
+          Contact us <span class="text-zinc-600">Via Email</span>
+        </h1>
+
+        <input
+          type="text"
+          required
+          class="h-[55px] w-[320px] m-2 border-2 rounded-lg"
+          placeholder="Your Name"
+        />
+
+        <input
+          type="email"
+          required
+          class="h-[55px] w-[320px] m-2 border-2 rounded-lg"
+          placeholder="Email"
+        />
+
+        <input
+          type="text"
+          required
+          class="h-[55px] w-[320px] m-2 border-2 rounded-lg"
+          placeholder="Message Us"
+        />
+
+        <a href="mailto:echinecherem729@gmail.com">
+          <button
+            class="w-[100px] h-[55px] m-2 text-white hover:bg-zinc-600 transition-all bg-zinc-700 rounded-lg"
+          >
+            Submit
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <hr class="m-[20px]" />
+
+    <footer
+      class="flex justify-evenly m-[40px] max-md:flex-col bg-zinc-800 text-white"
+    >
+      <div class="flex-col items-center justify-center">
+        <h1 class="text-[30px] font-bold m-[30px]">La Madison</h1>
+      </div>
+      <div class="flex-col items-center justify-center m-[30px]">
+        <p class="">Customers</p>
+        <p class="font-semibold hover:underline">Customer Support</p>
+        <p class="font-semibold hover:underline">Career</p>
+        <p class="font-semibold hover:underline">Premium</p>
+      </div>
+      <div class="flex-col items-center justify-center m-[30px]">
+        <p class="">Policy</p>
+        <p class="font-semibold hover:underline">Terms & Conditions</p>
+        <p class="font-semibold hover:underline">Privacy</p>
+      </div>
+      <div class="flex-col items-center justify-center m-[30px]">
+        <p class="">Quick links</p>
+        <p class="font-semibold hover:underline">
+          <a href="#about" class="text-none"> About Us </a>
+        </p>
+        <p class="font-semibold hover:underline">Testimonials</p>
+      </div>
+      <div class="flex-col items-center justify-center m-[30px]">
+        <p class="">Contact us</p>
+        <div class="flex">
+          <i class="bx bxl-facebook text-[23px]"></i>
+          <i class="bx bxl-instagram text-[23px]"></i>
+        </div>
+      </div>
+    </footer>
+    <hr class="m-[20px]" />
+
+    <h1
+      class="xl:text-[200px] sm:text-[100px] md:text-[140px] max-md:text-[50px] opacity-[0.5] font-bold bg-clip-text text-transparent text-center bg-gradient-to-r from-gray-400 via-white-500 to-white"
+    >
+      L <span>a</span>
+      Madison
+      <p class="font-light text-[14px] text-black">
+        Copyright &copy; La Madison 2024
+      </p>
+    </h1>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="script.js"></script>
+  </body>
+  <script>
+    const slideshow = document.getElementById("slideshow");
+    const slides = slideshow.children;
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+
+    let currentIndex = 0;
+
+    function updateSlideshow() {
+      const offset = -currentIndex * 100; // Calculate offset in percentage
+      slideshow.style.transform = `translateX(${offset}%)`;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length; // Wrap around
+      updateSlideshow();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % slides.length; // Wrap around
+      updateSlideshow();
+    });
+  </script>
+</html>
